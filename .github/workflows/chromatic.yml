@@ -2,11 +2,15 @@
 name: 'Chromatic Deployment'
 
 # Event for the workflow
-on: push
+on: 
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
 
 # List of jobs
 jobs:
-  test:
+  build:
     # Operating System
     runs-on: ubuntu-latest
     # Job steps
@@ -20,4 +24,6 @@ jobs:
           #👇 Chromatic projectToken, see https://storybook.js.org/tutorials/intro-to-storybook/angular/en/deploy/ to obtain it
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           token: ${{ secrets.GITHUB_TOKEN }}
+          buildScriptName: build-storybook
           exitZeroOnChanges: true
+          exitOnceUploaded: true
